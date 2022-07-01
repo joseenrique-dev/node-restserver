@@ -15,9 +15,28 @@ class Server {
     }
 
     routes() {
-        this.app.get('/', function (req, res) {
-            res.send('Hello World!!')
+        this.app.get('/api', function (req, res) {
+            res.status(201).json({
+                msg:'Get Api'
+            })
         });
+
+        this.app.put('/api', function (req, res) {
+            res.json({
+                msg:'Put Api'
+            })
+        });
+        this.app.post('/api', function (req, res) {
+            res.json({
+                msg:'Post Api'
+            })
+        });
+        this.app.delete('/api', function (req, res) {
+            res.json({
+                msg:'Delete Api'
+            })
+        });
+        
     }
     listen(){
         this.app.listen(this.port, () => {
