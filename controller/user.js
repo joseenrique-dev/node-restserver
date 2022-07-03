@@ -1,9 +1,14 @@
-const { response } = require('express');
+const { response, request } = require('express');
 
-const userGet = (req, res) => {
-    
+const userGet = (req = request, res = response) => {
+    const { q, name = 'No name', apikey, page = 1, limit = 10 } = req.query;
         res.json({
-            msg:'Get Api'
+            msg:'Get Api',
+            q,
+            name,
+            apikey,
+            page,
+            limit
         })
     }
 
