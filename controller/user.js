@@ -8,8 +8,10 @@ const userGet = (req, res) => {
     }
 
 const userPut = (req, res) => {
+    const { id } = req.params;
         res.json({
-            msg:'Put Api'
+            msg:'Put Api',
+            id
         })
     }
 
