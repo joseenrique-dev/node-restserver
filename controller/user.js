@@ -19,8 +19,18 @@ const userDelete = (req, res) => {
         })
     }
 
+const userPost = function (req, res) {
+    const {name, age} = req.body;
+        res.json({
+            msg:'Post Api',
+            name,
+            age
+        })
+    }
+
 module.exports = {
     userGet,
     userPut,
-    userDelete
+    userDelete,
+    userPost
 }
