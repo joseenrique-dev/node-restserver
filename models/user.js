@@ -27,7 +27,7 @@ const userSchema = new Schema({
     google:{
         type: Boolean,
         default: false
-    }
+    } 
 });
 
 module.exports = model('User', userSchema);
