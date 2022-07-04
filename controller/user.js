@@ -29,19 +29,27 @@ const userDelete = (req, res) => {
     }
 
 const userPost = async (req, res) => {
+
+    
     const { email, password, name, role } = req.body;
     const user = new User({ email, password, name, role });
 
+    //Validations
+    const existEmail = await User.findOne({ email });
+    if(existEmail){
+        return res.status(400).json({
+            msg: 'The email already exists'
+        })
+    }
     //encript password
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
-    console.log('user result:', user);
     //save bd
     await user.save();
         res.json({
-            msg:'Post Api',
+            msg:'User created successfully',
             user
-        });
+        }); 
     }
 
 module.exports = {
