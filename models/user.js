@@ -21,7 +21,8 @@ const UserSchema = new Schema({
     },
     role:{
         type: String,
-        required: true
+        required: true,
+        emun: ['ADMIN_ROLE', 'USER_ROLE']
     },
     status:{
         type: Boolean,

@@ -2,21 +2,23 @@ const { response, request } = require('express');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
-const userGet = (req = request, res = response) => {
+const userGet = async (req = request, res = response) => {
     const { q, name = 'No name', apikey, page = 1, limit = 10 } = req.query;
+    const user = await User.find({ name: q });
         res.json({
             msg:'Get Api',
             q,
             name,
             apikey,
             page,
-            limit
+            limit,
+            user
         })
     }
 
 const userPut = async(req, res) => {
     const { id } = req.params;
-    const { password, google,email, ...rest } = req.body;
+    const { _id, password, google,email, ...rest } = req.body;
 
     //db validate
     if( password ){
@@ -38,7 +40,7 @@ const userDelete = (req, res) => {
 
 const userPost = async (req, res) => {
 
-    
+    console.log('req.body', req.body);
     const { email, password, name, role } = req.body;
     const user = new User({ email, password, name, role });
     
