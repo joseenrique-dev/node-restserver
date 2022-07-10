@@ -33,9 +33,11 @@ const userPut = async(req, res) => {
         res.json(user)
     }
 
-const userDelete = (req, res) => {
+const userDelete = async (req, res) => {
+    const { id } = req.params;
+    const userDeleted = await User.findByIdAndUpdate(id, {status: false});
         res.json({
-            msg:'Delete Api'
+            userDeleted
         })
     }
 

@@ -5,7 +5,6 @@ const { validateField } = require('../middlewars/field-validation');
 const { isAValidRole, emailExist, idExist } = require('../helpers/db-validators');
 
 
-
 const router = Router();
 
     router.get('/', userGet);
@@ -16,6 +15,7 @@ const router = Router();
         check('role').custom(isAValidRole),
         validateField
     ], userPut);
+
     router.post('/',[
         check('email','Email is not valid').isEmail(),
         check('email').custom(emailExist),
@@ -25,6 +25,11 @@ const router = Router();
         check('role').custom(isAValidRole),
         validateField
     ], userPost);
-    router.delete('/', userDelete);
+
+    router.delete('/:id',[
+        check('id','Is not a valid id').isMongoId(),
+        // check('id').custom(idExist), //TODO: Throw error, find the bug
+        validateField
+    ], userDelete);
 
     module.exports = router ;
