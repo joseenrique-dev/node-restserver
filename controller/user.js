@@ -3,17 +3,12 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 const userGet = async (req = request, res = response) => {
-    const { q, name = 'No name', apikey, page = 1, limit = 10 } = req.query;
-    const user = await User.find({ name: q });
-        res.json({
-            msg:'Get Api',
-            q,
-            name,
-            apikey,
-            page,
-            limit,
-            user
-        })
+    const { limit = 5, from = 0 } = req.query;
+    const user = await User
+        .find()
+        .limit(Number(limit))
+        .skip(Number(from));
+        res.json(user)
     }
 
 const userPut = async(req, res) => {
@@ -26,10 +21,7 @@ const userPut = async(req, res) => {
         rest.password = bcrypt.hashSync(password, salt);
     }
     const user = await User.findByIdAndUpdate(id, rest, { new: true });
-        res.json({
-            msg:'Put Api',
-            id
-        })
+        res.json(user)
     }
 
 const userDelete = (req, res) => {
