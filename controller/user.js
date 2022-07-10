@@ -14,8 +14,16 @@ const userGet = (req = request, res = response) => {
         })
     }
 
-const userPut = (req, res) => {
+const userPut = async(req, res) => {
     const { id } = req.params;
+    const { password, google,email, ...rest } = req.body;
+
+    //db validate
+    if( password ){
+        const salt = bcrypt.genSaltSync();
+        rest.password = bcrypt.hashSync(password, salt);
+    }
+    const user = await User.findByIdAndUpdate(id, rest, { new: true });
         res.json({
             msg:'Put Api',
             id
@@ -33,14 +41,7 @@ const userPost = async (req, res) => {
     
     const { email, password, name, role } = req.body;
     const user = new User({ email, password, name, role });
-
-    //Validations
-    const existEmail = await User.findOne({ email });
-    if(existEmail){
-        return res.status(400).json({
-            msg: 'The email already exists'
-        })
-    }
+    
     //encript password
     const salt = bcrypt.genSaltSync();
     user.password = bcrypt.hashSync(password, salt);
