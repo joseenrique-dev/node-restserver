@@ -28,7 +28,7 @@ const router = Router();
 
     router.delete('/:id',[
         check('id','Is not a valid id').isMongoId(),
-        check('id').custom(idExist), //TODO: Throw error, find the bug
+        check('id').custom(idExist),
         validateField
     ], userDelete);
 
