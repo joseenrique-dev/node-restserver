@@ -18,7 +18,7 @@ const router = Router();
 
     router.post('/',[
         check('email','Email is not valid').isEmail(),
-        // check('email').custom(emailExist),
+        check('email').custom(emailExist),
         check('name','Name is required').not().isEmpty(),
         check('password','Password is required and greather than 6 characters').not().isEmpty().isLength({min:6}),
         // check('role','Role is required').isIn(['USER_ROLE', 'ADMIN_ROLE']),
@@ -28,7 +28,7 @@ const router = Router();
 
     router.delete('/:id',[
         check('id','Is not a valid id').isMongoId(),
-        // check('id').custom(idExist), //TODO: Throw error, find the bug
+        check('id').custom(idExist), //TODO: Throw error, find the bug
         validateField
     ], userDelete);
 
