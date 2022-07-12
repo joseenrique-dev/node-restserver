@@ -1,23 +1,34 @@
 const { response } = require('express');
+const bcryptjs = require('bcryptjs');
 const User = require('../models/user'); 
 
 const login = async (req, res = response) => {
     const {email, password} = req.body;
     try {
         //verify if email exist
-        const existEmail = await User.findOne({ email });
-        if(!existEmail) {
+        const userResponse = await User.findOne({ email });
+        if(!userResponse) {
             return res.status(400).json({
                 ok: false,
                 msg: 'User does not exist'
             });
         }
         
-
         //if user is active
-
+        if(!userResponse.status) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'User status false'
+            });
+        }
         //check password
-
+        const validPassword = bcryptjs.compareSync(password,userResponse.password)
+        if(!validPassword) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'Wrong password !!!.'
+            });
+        }
         //generate json webtoken
         res.json({
             message: 'Login success'
