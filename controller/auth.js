@@ -31,7 +31,8 @@ const login = async (req, res = response) => {
             });
         }
         //generate json webtoken
-        const token = await generateJWT(userResponse._id);
+        console.log('--->',userResponse.id);  
+        const token = await generateJWT(userResponse.id);
         res.json({
             ok: true,
             userResponse,
