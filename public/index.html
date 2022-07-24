@@ -4,9 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access denied</title>
+    <title>Google Sign-In</title>
 </head>
 <body>
-    <h1>Access Denied :(</h1>
+    <h1>Google Sign-In</h1>
+    <div id="g_id_onload"
+        data-client_id="725178909116-h4du34he82jtrp4c38sqp9umqavl9pqj.apps.googleusercontent.com"
+        data-login_uri="https://your.domain/your_login_endpoint"
+        data-auto_prompt="false"
+        data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+    </div>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+        function handleCredentialResponse(response) {
+           // decodeJwtResponse() is a custom function defined by you
+           // to decode the credential response.
+        //    const responsePayload = decodeJwtResponse(response.credential);
+      
+        //    console.log("ID: " + responsePayload.sub);
+        //    console.log('Full Name: ' + responsePayload.name);
+        //    console.log('Given Name: ' + responsePayload.given_name);
+        //    console.log('Family Name: ' + responsePayload.family_name);
+        //    console.log("Image URL: " + responsePayload.picture);
+        //    console.log("Email: " + responsePayload.email);
+        console.log('Id token-->',response.credential);
+        }
+      </script>
 </body>
 </html>
