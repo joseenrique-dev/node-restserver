@@ -45,7 +45,25 @@ const login = async (req, res = response) => {
     
 }
 
+const googleSignIn = async (req, res = response) => {
+
+    const {id_token} = req.body;
+    try {
+        //verify if email exist
+        
+        
+        res.json({
+            ok: true,
+            msg: 'Google login'
+        })
+    }catch (error) {
+        console.error(error);
+        return res.status(500,{error: 'Something went wrong'});
+    }
+
+}
 
 module.exports = {
-    login
+    login,
+    googleSignIn
 };
